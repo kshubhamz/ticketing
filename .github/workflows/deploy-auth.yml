@@ -16,3 +16,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push kshubhamz/ticketing-auth
+      # an example using digital-ocean
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{  secrets.DIGITALOCEAN_ACCESSTOKEN }}
+      - run: doctl kunernetes cluster kubeconfig save <DIGITALOCEAN_CLUSTERNAME>
+      - run: kubectl rollout restart deployment <AUTH_DEPLOYMENT_NAME>
