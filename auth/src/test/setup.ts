@@ -4,6 +4,8 @@ dotenv.config();
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 
+jest.mock("../environment");
+
 let mongo: MongoMemoryServer;
 beforeAll(async () => {
   mongo = await MongoMemoryServer.create();
