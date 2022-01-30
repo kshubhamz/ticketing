@@ -13,6 +13,8 @@ if (
   throw new Error("Configuration not proper");
 }
 
+console.log("starting up auth..");
+
 mongoose
   .connect(environment.DB_URL)
   .then(() => {
