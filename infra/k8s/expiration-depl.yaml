@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticketing-expiration-depl
+spec:
+  selector:
+    matchLabels:
+      app: ticketing-expiration
+  template:
+    metadata:
+      labels:
+        app: ticketing-expiration
+    spec:
+      containers:
+        - name: ticketing-expiration
+          image: kshubhamz/ticketing-expiration
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: REDIS_HOST
+              value: ticketing-expiration-redis-srv
+            - name: NATS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: NATS_URL
+            - name: NATS_CLUSTER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: NATS_CLUSTER_ID

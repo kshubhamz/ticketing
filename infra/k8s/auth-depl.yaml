@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticketing-auth-depl
+spec:
+  selector:
+    matchLabels:
+      app: ticketing-auth
+  template:
+    metadata:
+      labels:
+        app: ticketing-auth
+    spec:
+      containers:
+        - name: ticketing-auth
+          image: kshubhamz/ticketing-auth
+          env:
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: DB_URL
+            - name: SALT_ROUNDS
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: SALT_ROUNDS
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: SECRET_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticketing-auth-srv
+spec:
+  selector:
+    app: ticketing-auth
+  ports:
+    - name: ticketing-auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

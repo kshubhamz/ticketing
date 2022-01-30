@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.auth-form {
+  margin: auto;
+  text-align: center;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-header {
+  height: 45px;
+}
+
+.btn-form-submit {
+  float: right;
+  margin-top: 10px;
+  margin-right: 0.125rem;
+  min-width: 25%;
+}
+
+.hoverable {
+  cursor: pointer;
+  color: #0d6efd;
+}
+
+.hoverable:hover {
+  color: blue;
+}
+
+.search-box {
+  width: 100%;
+  height: 40px;
+  margin: 10px;
+}
+
+@media only screen and (min-width: 720px) {
+  .search-box {
+    display: flex;
+    justify-content: right;
+  }
+  .search-inp-box {
+    width: 25%;
+    height: 100%;
+    margin-right: 20px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .search-inp-box {
+    width: 100%;
+    height: 100%;
+  }
+}

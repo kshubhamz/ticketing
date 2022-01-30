@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticketing-payment-depl
+spec:
+  selector:
+    matchLabels:
+      app: ticketing-payment
+  template:
+    metadata:
+      labels:
+        app: ticketing-payment
+    spec:
+      containers:
+        - name: ticketing-payment
+          image: kshubhamz/ticketing-payment
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: DB_URL
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: SECRET_KEY
+            - name: NATS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: NATS_URL
+            - name: NATS_CLUSTER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: NATS_CLUSTER_ID
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ticketing-secret
+                  key: STRIPE_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticketing-payment-srv
+spec:
+  selector:
+    app: ticketing-payment
+  ports:
+    - port: 3000
+      targetPort: 3000
