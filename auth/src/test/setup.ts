@@ -8,6 +8,7 @@ jest.mock("../environment");
 
 let mongo: MongoMemoryServer;
 beforeAll(async () => {
+  jest.setTimeout(30 * 1000);
   mongo = await MongoMemoryServer.create();
   const mongoUrl = mongo.getUri();
 
